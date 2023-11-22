@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Walmart Sales Prediction</title>
+  
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="icon" type="image/png" href="./static/images/walmart_icon.png">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+</head>
+
+<body>
+<div>
+ <div class="login" style="top:20%">
+	<h1 style="margin-bottom:35px">Walmart Sales Prediction</h1>
+  
+    <form method="post" action="{{url_for('predict')}}">
+      
+      <div class="row">
+      <div class="col-sm-6">
+        
+        <label for="store" style="margin-top:5px">Store</label>
+        <small>(Store Number)</small>
+    	  <input type="number" name="store" placeholder="Store (e.g 1,2,3)" style="margin-top:5px">
+
+        <label for="dept" style="margin-top:5px">Department</label>
+        <small>(Department Number)</small>
+        <input type="number" name="dept" placeholder="Dept (e.g 1,2,3)" style="margin-top:5px">
+        
+        <label for="CPI" style="margin-top:5px">CPI</label>
+        <small>(Consumer Price Index)</small>
+        <input type="number" name="CPI" placeholder="CPI (Round-Up the decimals)" style="margin-top:5px">
+        
+
+        <label for="isholiday" style="margin-top: 10%;">IsHoliday:</label>
+        <small>(special holiday week)</small>
+      <input class="form-check-input" type="radio" value="1" name="isHolidayRadio" id="yes" style="width:auto; margin-left:5px">
+      <label class="form-check-label" for="yes" style="margin-left:5px"> Yes </label>
+      <input class="form-check-input" type="radio" value="0" name="isHolidayRadio" id="no" style="width:auto; margin-left:5px">
+      <label class="form-check-label" for="no" style="margin-left:5px"> No </label>
+      <br>
+        
+        <label for="a" style="margin-top: 10%;">Type-A</label>
+        <small>(Type of the store)</small>
+            <input class="form-check-input" type="radio" value="1" name="aRadio" id="yes" style="width:auto; margin-left:15px">
+              <label class="form-check-label" for="yes" style="margin-left:5px"> Yes </label>
+            <input class="form-check-input" type="radio" value="0" name="aRadio" id="no" style="width:auto; margin-left:15px">
+              <label class="form-check-label" for="no" style="margin-left:5px"> No </label>
+        
+        
+      </div>
+
+      <div class="col-sm-6">
+
+        <label for="size" style="margin-top:5px">Size</label>
+        <small>(Size of the store)</small>
+        <input type="number" id="size" name="size" placeholder="Size" style="margin-top:5px">
+        
+
+
+        <label for="temp" style="margin-top:5px">Temperature:</label>
+        <small>(Average temperature in the region)</small>
+        <input type="number" id="temp" name="temp" placeholder="Temperature" style="margin-top:5px">
+        
+        <label for="date" style="margin-top:5px">Date:</label>
+        <small>(DD-MM-YYYY)</small>
+        <input type="date" id="date" name="date" style="margin-top:5px">
+
+      
+      
+     <label for="b" style="margin-top: 10%;">Type-B</label>
+      <small>(Type of the store)</small>
+       <input class="form-check-input" type="radio" value="1" name="bRadio" id="yes" style="width:auto; margin-left:5px">
+         <label class="form-check-label" for="yes" style="margin-left:5px"> Yes </label>
+        <input class="form-check-input" type="radio" value="0" name="bRadio" id="no" style="width:auto; margin-left:5px">
+        <label class="form-check-label" for="no" style="margin-left:5px"> No </label>
+    <br>
+  <label for="c" style="margin-top: 10%;">Type-C</label>
+  <small>(Type of the store)</small>
+<input class="form-check-input" type="radio" value="1" name="cRadio" id="yes" style="width:auto; margin-left:5px">
+<label class="form-check-label" for="yes" style="margin-left:5px"> Yes </label>
+<input class="form-check-input" type="radio" value="0" name="cRadio" id="no" style="width:auto; margin-left:5px">
+<label class="form-check-label" for="no" style="margin-left:5px"> No </label>
+
+      </div>
+
+    </div>
+      <button type="submit" class="btn btn-primary btn-block btn-large" style="width: 25%; margin: auto; margin-top: 5%;">Predict</button>
+
+    </form>
+   
+    {% if output %}
+   <div style="font-size: x-large; color: ghostwhite; font-family: serif; margin-top: 5%;">
+      <p id="text">Predicted weekly sales for Store {{store}}, Department {{dept}} in the month of {{month_name}} {{year}} is : {{ output }} </p>
+      <p id="text">{{insights}}</p>
+      <p id="text">Most significant feature in the predicted sale is {{ most_significant_feature }}</p>
+      
+   </div>
+   {% endif %}
+  </div>
+
+ </div>
+
+   
+</body>
+</html> 

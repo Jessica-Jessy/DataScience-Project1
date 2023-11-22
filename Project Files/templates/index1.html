@@ -1,0 +1,130 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walmart Sales Prediction</title>
+    <!-- Add Bootstrap CSS link here -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+       body {
+            width: 100%;
+            height: 100%;
+            background-image: url('static/images/background1.png'); 
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            color: white;
+            margin: 0;
+        }
+        .container {
+        background-color: rgba(0, 0, 0, 0.6);
+        margin-top: 50px;
+       }
+       
+    </style>
+<body>
+        <h1 class="text-center" style="margin-top:70px">Walmart Sales Prediction</h1>
+         <div class="container" >
+        <form action="/predict" method="post">
+            <div class="row align-items-start ">
+               <div class="col">
+                   <label for="store"  class="col-form-label col-form-label-lg">Store</label>
+                     <small class="form-text text-muted">(Store Number)</small>
+                     <input type="text" name="store" class="form-control form-control-sm" placeholder="Store (e.g 1,2,3)" id="store">
+               </div>
+               <div class="col">
+                 <label for="dept" class="col-form-label col-form-label-lg">Department</label>
+                 <small class="form-text text-muted">(Department Number)</small>
+                 <input type="number" name="dept" class="form-control form-control-sm" placeholder="Dept (e.g 1,2,3)" id="dept">
+               </div>
+               <div class="col">
+                 <label for="size" class="col-form-label col-form-label-lg">Size</label>
+                 <small class="form-text text-muted">(Size of the store)</small>
+                 <input type="number" name="size" class="form-control form-control-sm" id="size"  placeholder="Size">
+               </div>
+            </div>
+            <div class="row align-items-center">
+              <div class="col">
+                 <label for="temp" style="margin-top:5px" class="col-form-label col-form-label-lg">Temperature</label>
+                 <small class="form-text text-muted">(Average temperature in the region)</small>
+                 <input type="number"  name="temp" class="form-control form-control-sm" id="temp"  placeholder="Temperature" >
+             </div>
+             <div class="col">
+               <label for="date" style="margin-top:5px" class="col-form-label col-form-label-lg">Date:</label>
+               <small class="form-text text-muted">(DD-MM-YYYY)</small>
+               <input type="date" id="date"  class="form-control form-control-sm" name="date" >
+             </div>
+             <div class="col">
+               <label for="CPI style="margin-top:5px" class="col-form-label col-form-label-lg"">CPI</label>
+               <small class="form-text text-muted">(Consumer Price Index)</small>
+               <input type="number" name="CPI" class="form-control form-control-sm" placeholder="CPI (Round-Up the decimals)" id="CPI" >
+             </div>
+          </div>
+          <div class="row align-items-end">
+            <div class="col">
+              <label for="isholiday" style="margin-top:5px" class="col-form-label col-form-label-lg">IsHoliday:</label>
+              <small class="form-text text-muted">(special holiday week)</small>
+              <input class="form-check-input" type="radio" value="1" name="isHolidayRadio" id="yes" style="margin-top:25px">
+              <label  for="yes" style="margin-top:5px" class="col-form-label col-form-label-lg" > Yes </label>
+              <input class="form-check-input" type="radio" value="0" name="isHolidayRadio" id="no" style="margin-top:25px">
+              <label  for="no" style="margin-top:5px" class="col-form-label col-form-label-lg"> No </label>
+              <br>
+            </div>
+            <div class="col">
+              <label for="a" style="margin-top:5px" class="col-form-label col-form-label-lg" >Type-A</label>
+              <small class="form-text text-muted">(Type of the store)</small>
+              <input class="form-check-input" type="radio" value="1" name="aRadio" id="yes" style="margin-top:25px">
+              <label for="yes" style="margin-top:5px" class="col-form-label col-form-label-lg"> Yes </label>
+              <input class="form-check-input" type="radio" value="0" name="aRadio" id="no" style="margin-top:25px">
+              <label  for="no" style="margin-top:5px" class="col-form-label col-form-label-lg"> No </label>
+              <br>
+            </div>
+            <div class="col">
+             <label for="b" style="margin-top:5px" class="col-form-label col-form-label-lg">Type-B</label>
+              <small class="form-text text-muted">(Type of the store)</small>
+              <input class="form-check-input" type="radio" value="1" name="bRadio" id="yes" style="margin-top:25px">
+              <label for="yes" style="margin-top:5px" class="col-form-label col-form-label-lg"> Yes </label>
+              <input class="form-check-input" type="radio" value="0" name="bRadio" id="no" style="margin-top:25px">
+              <label for="no" style="margin-top:5px" class="col-form-label col-form-label-lg"> No </label>
+            </div>
+         </div>
+         <div class="row align-items-end">
+           <div class="col">
+             <label for="c" style="margin-top:5px" class="col-form-label col-form-label-lg">Type-C</label>
+              <small class="form-text text-muted">(Type of the store)</small>
+              <input class="form-check-input" type="radio" value="1" name="cRadio" id="yes" style="margin-top:25px">
+              <label  for="yes" style="margin-top:5px" class="col-form-label col-form-label-lg"> Yes </label>
+              <input class="form-check-input" type="radio" value="0" name="cRadio" id="no" style="margin-top:25px">
+              <label  for="no" style="margin-top:5px" class="col-form-label col-form-label-lg"> No </label>
+              <br>
+           </div>
+           <div class="col">
+            <button type="submit" style="margin-top:5px" class="btn btn-primary">Predict Sales</button>
+            </div>
+         </div>
+        </form>
+        {% if output %}
+          <div style="font-size: x-large; color: ghostwhite; font-family: serif; margin-top: 5%;">
+            <p id="text">Predicted weekly sales for Store {{store}}, Department {{dept}} in the month of {{month_name}} {{year}} is : {{ output }} </p>
+            <p id="text">{{insights}}</p>
+            <ul>
+               {% for feature, importance in feature_importance.items() %}
+            <li>{{ feature }}: {{ importance }}</li>
+             {% endfor %}
+          </ul>
+            <p id="text">Most significant feature in the predicted sale is {{ most_significant_feature }}</p>
+       </div>
+       {% endif %}
+       
+    </div>
+
+    <!-- Add Bootstrap JS and Popper.js links here -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-Uo3fC0Mzve8Wn8E8+1n5/wq4FF02xIM5ibzq1Oi6jFZo5zK7u2EC1gM5S5hMVoVk" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>
